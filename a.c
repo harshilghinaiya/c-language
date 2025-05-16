@@ -2,23 +2,33 @@
 
 int main() {
     int n, i;
+    int arr[100];         // Static array with a max size
+    int *p = arr;         // Pointer to array
+    int **pptr = &p;      // Chain of pointer (pointer to pointer)
+
+    // Input array size
     printf("Enter the array's size: ");
     scanf("%d", &n);
-    
-    int arr[n]; // Declare an array of size n
-    int *ptr = arr; // Pointer to the array
 
     // Input array elements
-    for (i = 0; i < n; i++) {
-        printf("Enter array elements a[%d] = ", i);
-        scanf("%d", ptr + i); // Use pointer arithmetic to store values
+    printf("Enter array elements:\n");
+    for(i = 0; i < n; i++) {
+        printf("a[%d] = ", i);
+        scanf("%d", &(*pptr)[i]);
     }
 
-    // Output squared elements in reverse order
-    printf("Reversed array elements:\n");
-    for (i = n - 1; i >= 0; i--) {
-        printf("%d ", (*(ptr + i)) * (*(ptr + i))); // Square and print
+    // Square each element
+    for(i = 0; i < n; i++) {
+        (*pptr)[i] = (*pptr)[i] * (*pptr)[i];
     }
-    
+
+    // Print in reverse order
+    printf("Reversed array elements:\n");
+    for(i = n - 1; i >= 0; i--) {
+        printf("%d", (*pptr)[i]);
+        if(i != 0)
+            printf(", ");
+    }
+
     return 0;
 }
